@@ -203,7 +203,6 @@ func cleanupBannedIPs() {
 func cleanupFailedLoginAttempts() {
 	for {
 		time.Sleep(1 * time.Minute)
-		now := time.Now()
 		failedLoginAttempts.Range(func(key, value interface{}) bool {
 			if attempts := value.(int); attempts > 0 {
 				failedLoginAttempts.Delete(key)
@@ -213,6 +212,7 @@ func cleanupFailedLoginAttempts() {
 		})
 	}
 }
+
 
 func main() {
 	go cleanupBannedIPs()

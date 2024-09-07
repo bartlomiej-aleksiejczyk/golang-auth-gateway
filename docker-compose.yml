@@ -1,0 +1,24 @@
+version: "3.8"
+
+services:
+  go-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: go-server
+    environment:
+      - PORT=3000
+      - ALLOWED_ORIGINS=http://localhost,http://example.com
+      - USERNAME=admin
+      - PASSWORD=secret
+      - MAX_FAILED_ATTEMPTS=5
+      - BAN_DURATION_HOURS=1
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    networks:
+      - go-network
+
+networks:
+  go-network:
+    driver: bridge
